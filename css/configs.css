@@ -17,6 +17,21 @@ header {
   padding: 10px;
 }
 
+header h1 a {
+  font-size: 12px;
+  display: inline-block;
+  margin-left: 10px;
+  text-decoration: none;
+  padding: 2px 8px;
+  color: white;
+  background: #2C4372;
+  border-radius: 2px;
+}
+
+header h1 a:hover {
+  background: #192e58;
+}
+
 main {
   padding: 10px;
   margin-top: 100px;
@@ -41,7 +56,7 @@ main {
 .btn-save {
   position: absolute;
   right: 40px;
-  top: 30px;
+  top: 24px;
   background: transparent;
   cursor: pointer;
   border: 2px solid white;
@@ -58,7 +73,7 @@ main {
 .message-saved {
   position: absolute;
   right: 120px;
-  top: 30px;
+  top: 21px;
   text-align: right;
   display: none;
 }
