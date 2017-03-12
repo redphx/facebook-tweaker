@@ -6,7 +6,8 @@ function injectScriptTag(scriptContent) {
 
 chrome.storage.local.get('userConfigs', function(data) {
   const userConfigs = data['userConfigs'] || {};
-  const scriptContent = 'window.USER_JS_CONFIGS = ' + JSON.stringify(userConfigs);
+  const scriptContent = 'window.USER_JS_CONFIGS = ' + JSON.stringify(userConfigs) + ';\n'
+                      + 'localStorage.userConfigs = JSON.stringify(window.USER_JS_CONFIGS);';
   injectScriptTag(scriptContent);
   console.log('USER_CONFIGS', userConfigs);
 });
@@ -457,6 +458,11 @@ function overrideRequireJs(b, extensionId) {
 
   // BEGIN Custom Scripts
   let fbConfigs = {};
+  let localUserConfigs;
+  try {
+      localUserConfigs = JSON.parse(localStorage.userConfigs);
+  } catch (e) {}
+
   function ServerJSDefine(b, c, d, e, f, g) {
     var h = 2,
       i = new(c('BitMap'))(),
@@ -469,11 +475,12 @@ function overrideRequireJs(b, extensionId) {
             fbConfigs[name] = {};
           }
 
+          let userConfigs = typeof USER_JS_CONFIGS !== 'undefined' ? USER_JS_CONFIGS : localUserConfigs;
           for (let key in values) {
             let v = values[key];
 
-            if (typeof USER_JS_CONFIGS !== 'undefined' && USER_JS_CONFIGS[name] && USER_JS_CONFIGS[name].hasOwnProperty(key)) {
-              values[key] = USER_JS_CONFIGS[name][key];
+            if (typeof userConfigs !== 'undefined' && userConfigs.hasOwnProperty(name) && userConfigs[name].hasOwnProperty(key)) {
+              values[key] = userConfigs[name][key];
             }
 
             fbConfigs[name][key] = v;
