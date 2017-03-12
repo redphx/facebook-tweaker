@@ -1,8 +1,9 @@
 'use strict';
 const { Component, h, render } = window.preact;
 
-class App extends Component {
 
+
+class App extends Component {
   constructor(props) {
     super(props);
 
@@ -39,7 +40,7 @@ class App extends Component {
 
   render(props, state) {
     return (
-      h('div', {id:'app'},
+      h('div', { id: 'app' },
         h(Header, {
           ref: ref => this.headerRef = ref,
           onSave: this.onSave,
@@ -52,11 +53,24 @@ class App extends Component {
   }
 }
 
-/** Components can just be pure functions */
+
+
 const Header = (props) => {
+  const manifestData = chrome.runtime.getManifest();
+
   return h('header', null,
     [
-      h('h1', null, 'Facebook Tweaker'),
+      h('h1', null, [
+        'Facebook Tweaker',
+        h('a', {
+          href: 'https://github.com/redphx/facebook-tweaker',
+          target: '_blank',
+        }, manifestData.version),
+        h('a', {
+          href: 'http://codekiem.com',
+          target: '_blank',
+        }, 'redphx'),
+      ]),
       h('button', {
         className: 'btn-save',
         onClick: props.onSave
@@ -68,6 +82,8 @@ const Header = (props) => {
   );
 };
 
+
+
 const RowHeader = ({ group }) => {
   return h('div', { className: 'row row-header' },
     [
@@ -77,6 +93,8 @@ const RowHeader = ({ group }) => {
     ]
   );
 };
+
+
 
 const RowBoolean = ({ config, value, defaultValue, onChange, onClick }) => {
   const clsRow = 'row row-config row-boolean ' + (defaultValue !== value ? 'modified' : '');
@@ -102,9 +120,8 @@ const RowBoolean = ({ config, value, defaultValue, onChange, onClick }) => {
 }
 
 
-/** Instead of JSX, use: h(type, props, ...children) */
-class Main extends Component {
 
+class Main extends Component {
   sortObjectByKeys(obj) {
     if (!obj || typeof obj !== 'object') {
       return {};
