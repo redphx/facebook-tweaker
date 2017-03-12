@@ -1,3 +1,16 @@
+function injectScriptTag(scriptContent) {
+  let scriptTag = document.createElement('script');
+  scriptTag.appendChild(document.createTextNode(scriptContent));
+  document.documentElement.appendChild(scriptTag);
+}
+
+chrome.storage.local.get('userConfigs', function(data) {
+  const userConfigs = data['userConfigs'] || {};
+  const scriptContent = 'window.USER_JS_CONFIGS = ' + JSON.stringify(userConfigs);
+  injectScriptTag(scriptContent);
+  console.log('USER_CONFIGS', userConfigs);
+});
+
 function overrideRequireJs(b, extensionId) {
   if (b.require) {
     console.error('Cannot override requireJs');
@@ -505,12 +518,6 @@ function overrideRequireJs(b, extensionId) {
   console.log('Overrided RequireJs');
 }
 
-function injectScriptTag(scriptContent) {
-  let scriptTag = document.createElement('script');
-  scriptTag.appendChild(document.createTextNode(scriptContent));
-  document.documentElement.appendChild(scriptTag);
-}
-
 const extensionId = '"' + chrome.runtime.id + '"';
 const injectCode = '(' + overrideRequireJs.toString() + ')(this, ' + extensionId + ')';
 
@@ -519,10 +526,3 @@ injectScriptTag(injectCode);
 window.sendFbConfigs = () => {
   injectScriptTag('window.sendFbConfigs()');
 }
-
-chrome.storage.local.get('userConfigs', function(data) {
-  const userConfigs = data['userConfigs'] || {};
-  console.log('USER_CONFIGS', userConfigs);
-  const scriptContent = 'window.USER_JS_CONFIGS = ' + JSON.stringify(userConfigs);
-  injectScriptTag(scriptContent);
-});
