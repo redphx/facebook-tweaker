@@ -3,17 +3,16 @@
   "description": "Try Facebook's hidden/unreleased features by changing its configurations.",
   "author": "redphx",
   "version": "1.0.0",
+  "homepage_url": "https://github.com/redphx/facebook-tweaker",
   "manifest_version": 2,
 
-  "content_scripts": [
-    {
-      "matches": ["*://*.facebook.com/*"],
-      "run_at": "document_start",
-      "js": [
-        "js/content-script.js"
-      ]
-    }
-  ],
+  "content_scripts": [{
+    "matches": ["*://*.facebook.com/*"],
+    "run_at": "document_start",
+    "js": [
+      "js/content-script.js"
+    ]
+  }],
 
   "page_action": {
     "default_icon": "img/icon-48.png"
