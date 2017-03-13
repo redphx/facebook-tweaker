@@ -17,7 +17,7 @@ chrome.runtime.onMessageExternal.addListener(function(request, sender, sendRespo
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (tab.url && tab.url.indexOf('https://www.facebook.com') === 0) {
+  if (tab.url && /https?:\/\/(www|web)\.facebook\.com.*/.test(tab.url)) {
     chrome.pageAction.show(tabId);
   }
 });
