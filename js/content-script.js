@@ -5,9 +5,9 @@ function injectScriptTag(scriptContent) {
 }
 
 chrome.storage.local.get('userConfigs', function(data) {
-  const userConfigs = data['userConfigs'] || {};
-  const scriptContent = 'window.USER_JS_CONFIGS = ' + JSON.stringify(userConfigs) + ';\n'
-                      + 'localStorage.userConfigs = JSON.stringify(window.USER_JS_CONFIGS);';
+  const userConfigs = data.userConfigs || {};
+  const scriptContent = 'window.USER_JS_CONFIGS = ' + JSON.stringify(userConfigs) + ';\n' +
+    'localStorage.userConfigs = JSON.stringify(window.USER_JS_CONFIGS);';
   injectScriptTag(scriptContent);
   console.log('USER_CONFIGS', userConfigs);
 });
@@ -94,7 +94,7 @@ function overrideRequireJs(b, extensionId) {
   function v(ta) {
     u++;
     var ua = c[ta];
-    if (ua && ua.exports != null) {
+    if (ua && ua.exports !== null) {
       if (ua.refcount-- === 1) c[ta] = void 0;
       return ua.exports;
     }
@@ -109,7 +109,7 @@ function overrideRequireJs(b, extensionId) {
         xa, ya;
       if (wa) xa = wa.startTiming('FACTORY_COMPILE_TIME');
       ua.factoryLength = ua.factory.length;
-      if (xa != null) {
+      if (xa !== null) {
         ya = wa.stopTiming(xa);
         va.compileTime += ya;
       }
@@ -162,7 +162,7 @@ function overrideRequireJs(b, extensionId) {
           if (p) {
             var jb = r(),
               kb = 0;
-            if (ib != null) kb = hb.stopTiming(ib);
+            if (ib !== null) kb = hb.stopTiming(ib);
             var lb = d[ua.id];
             lb.factoryTime = kb;
             lb.factoryEnd = jb;
@@ -505,9 +505,9 @@ function overrideRequireJs(b, extensionId) {
   b.sendFbConfigs = function() {
     chrome.runtime.sendMessage(extensionId, {
       cmd: 'manageConfigs',
-      fbConfigs: fbConfigs,
+      fbConfigs: fbConfigs
     });
-  }
+  };
 
   b.__d = function(ta, ua, va, wa) {
     if (ta === 'ServerJSDefine') {
@@ -532,4 +532,4 @@ injectScriptTag(injectCode);
 
 window.sendFbConfigs = () => {
   injectScriptTag('window.sendFbConfigs()');
-}
+};

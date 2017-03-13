@@ -1,16 +1,15 @@
-chrome.runtime.onMessageExternal.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onMessageExternal.addListener((request, sender, sendResponse) => {
   switch (request.cmd) {
     case 'manageConfigs':
       chrome.tabs.create({
         url: chrome.runtime.getURL('configs.html'),
-      }, function(tab) {
-        setTimeout(function() {
+      }, tab => {
+        setTimeout(() => {
           chrome.tabs.sendMessage(tab.id, {
             cmd: 'configs',
             fbConfigs: request.fbConfigs,
           });
         }, 1000);
-
       });
       break;
   }
@@ -22,7 +21,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   }
 });
 
-chrome.pageAction.onClicked.addListener((tab) => {
+chrome.pageAction.onClicked.addListener(tab => {
   chrome.tabs.executeScript(tab.id, {
     code: 'sendFbConfigs()',
   });

@@ -31,7 +31,7 @@ class App extends Component {
     let msgSaved = this.headerRef.querySelector('.message-saved');
     msgSaved.classList.add('show');
     btnSave.disabled = 'disabled';
-    setTimeout(function() {
+    setTimeout(() => {
       msgSaved.classList.remove('show');
       btnSave.removeAttribute('disabled');
     }, 3000);
@@ -117,7 +117,7 @@ const RowBoolean = ({ config, value, defaultValue, onChange, onClick }) => {
       ]
     )
   );
-}
+};
 
 
 
@@ -128,7 +128,7 @@ class Main extends Component {
     }
 
     let newObj = {};
-    Object.keys(obj).sort().forEach((k) => {
+    Object.keys(obj).sort().forEach(k => {
       newObj[k] = obj[k];
     });
     return newObj;
@@ -164,14 +164,14 @@ class Main extends Component {
           config: key,
           value: value,
           defaultValue: defaultValue,
-        }
+        };
 
         if (typeof defaultValue === 'boolean') {
           props.onChange = (e) => {
             if (!userConfigs[group]) {
               userConfigs[group] = {};
             }
-            const checked = e.target.checked
+            const checked = e.target.checked;
             if (checked === defaultValue) {
               delete userConfigs[group][props.config];
             } else {
@@ -179,15 +179,15 @@ class Main extends Component {
             }
 
             this.setState({
-              userConfigs: userConfigs,
+              userConfigs: userConfigs
             });
-          }
+          };
 
           props.onClick = (e) => {
             if (e.target.nodeName !== 'INPUT') {
               e.currentTarget.querySelector('input').click();
             }
-          }
+          };
 
           childrenViews.push(h(RowBoolean, props));
         }
@@ -208,11 +208,11 @@ class Main extends Component {
   componentDidMount() {
     chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       if (request.cmd === 'configs') {
-        chrome.storage.local.get('userConfigs', (data) => {
+        chrome.storage.local.get('userConfigs', data => {
           document.body.classList.remove('no-config');
           this.setState({
             fbConfigs: this.sortObjectByKeys(request.fbConfigs),
-            userConfigs: this.sortObjectByKeys(data['userConfigs']),
+            userConfigs: this.sortObjectByKeys(data.userConfigs)
           });
         });
       }
