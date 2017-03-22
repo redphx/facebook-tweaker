@@ -179,7 +179,7 @@ class Main extends Component {
             }
 
             this.setState({
-              userConfigs: userConfigs
+              userConfigs: userConfigs,
             });
           };
 
