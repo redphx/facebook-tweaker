@@ -5,9 +5,9 @@ function injectScriptTag(scriptContent) {
 }
 
 chrome.storage.local.get('userConfigs', function(data) {
-  const userConfigs = data['userConfigs'] || {};
-  const scriptContent = 'window.USER_JS_CONFIGS = ' + JSON.stringify(userConfigs) + ';\n'
-                      + 'localStorage.userConfigs = JSON.stringify(window.USER_JS_CONFIGS);';
+  const userConfigs = data.userConfigs || {};
+  const scriptContent = 'window.USER_JS_CONFIGS = ' + JSON.stringify(userConfigs) + ';\n' +
+    'localStorage.userConfigs = JSON.stringify(window.USER_JS_CONFIGS);';
   injectScriptTag(scriptContent);
   console.log('USER_CONFIGS', userConfigs);
 });
@@ -507,7 +507,7 @@ function overrideRequireJs(b, extensionId) {
       cmd: 'manageConfigs',
       fbConfigs: fbConfigs,
     });
-  }
+  };
 
   b.__d = function(ta, ua, va, wa) {
     if (ta === 'ServerJSDefine') {
@@ -532,4 +532,4 @@ injectScriptTag(injectCode);
 
 window.sendFbConfigs = () => {
   injectScriptTag('window.sendFbConfigs()');
-}
+};
