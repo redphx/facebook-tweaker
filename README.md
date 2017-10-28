@@ -41,7 +41,7 @@ MercuryConfig<br/><ul><li>MessengerGamesGK</li></ul> | Enable Games feature in M
 MercuryConfig<br/><ul><li>ShowMessageLinks</li></ul> | Enable Copy Links feature in Messenger (replace `https://www.facebook.com` with `https://www.messenger.com` | ![](https://i.imgur.com/FB8GPBd.png)
 MercuryConfig<br/><ul><li>GKSpoof</li></ul> | ??? 🤔 | ![](https://i.imgur.com/4yJHTcP.png)
 ReactGK<br/><ul><li>logTopLevelRenders</li></ul> | Show Debug messages in Console | ![](https://i.imgur.com/p3aDFn0.png)
-
+EmojiPicker<br/><ul><li>hasEmojiPickerSearch</li></ul> | Show search bar for emoji picker | ![](https://i.imgur.com/DVCjL6R.jpg)
 ## TODO
 Forks, pull requests and code critiques are welcome!
 
